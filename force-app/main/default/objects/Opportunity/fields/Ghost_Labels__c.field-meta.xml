@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ghost_Labels__c</fullName>
+    <externalId>false</externalId>
+    <formula>TRIM(
+    /* ALWAYS INCLUDE THIS TAG */
+    &quot;All Interest, &quot; &amp;
+
+    /* Part 1: Giving Circle Categories */
+    IF(INCLUDES(npsp__Primary_Contact__r.Giving_Circle_Categories__c, &quot;Volunteer&quot;), &quot;Volunteer &quot;, &quot;&quot;) &amp;
+    
+    IF(OR(
+        INCLUDES(npsp__Primary_Contact__r.Giving_Circle_Categories__c, &quot;Donor&quot;), 
+        INCLUDES(npsp__Primary_Contact__r.Giving_Circle_Categories__c, &quot;In-Kind Supporter&quot;)
+    ), &quot;Giving Circle &quot;, &quot;&quot;) &amp;
+    
+    IF(INCLUDES(npsp__Primary_Contact__r.Giving_Circle_Categories__c, &quot;Sponsor&quot;), &quot;Sponsor Universe &quot;, &quot;&quot;) &amp;
+
+    /* Part 2: Opportunity Record Types (By ID) */
+    /* Note: &apos;All Interest&apos; moved to the top, so we only check for &apos;Events&apos; here */
+    IF(OR(RecordTypeId = &quot;0125e000000VbJN&quot;, RecordTypeId = &quot;0125e000000VbJO&quot;, RecordTypeId = &quot;012VW000001bGzi&quot;), &quot;Events &quot;, &quot;&quot;) &amp;
+    
+    IF(RecordTypeId = &quot;012VW000001bITd&quot;, &quot;Events &quot;, &quot;&quot;) &amp;
+    
+    IF(RecordTypeId = &quot;0125e000001tMqa&quot;, &quot;Professional Development &quot;, &quot;&quot;) &amp;
+    
+    IF(OR(RecordTypeId = &quot;0125e000001tMe5&quot;, RecordTypeId = &quot;012VW000003InlJ&quot;), &quot;Sponsor Universe &quot;, &quot;&quot;)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Ghost_Labels</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

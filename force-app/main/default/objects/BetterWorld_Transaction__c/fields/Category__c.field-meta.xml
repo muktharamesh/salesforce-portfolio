@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auction</fullName>
+                <default>false</default>
+                <label>Auction</label>
+            </value>
+            <value>
+                <fullName>Donation Campaign</fullName>
+                <default>false</default>
+                <label>Donation Campaign</label>
+            </value>
+            <value>
+                <fullName>Giveaway</fullName>
+                <default>false</default>
+                <label>Giveaway</label>
+            </value>
+            <value>
+                <fullName>Ticketed Event</fullName>
+                <default>false</default>
+                <label>Ticketed Event</label>
+            </value>
+            <value>
+                <fullName>item donor</fullName>
+                <default>false</default>
+                <label>item donor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

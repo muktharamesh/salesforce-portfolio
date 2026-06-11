@@ -33,6 +33,20 @@ A business is only as strong as its data. I built a comprehensive reporting suit
 
 ---
 
+### 🗄️ 3. Database Schema Extensions & Integrations (`force-app/main/default/objects/`)
+To support integrations and advanced metrics, I designed and implemented custom objects and custom fields to expand the default Salesforce database schema:
+
+*   **BetterWorld Custom Integration Object** (`BetterWorld_Transaction__c`)
+    *   **Purpose**: A fully customized object acting as the landing table for BetterWorld transaction data.
+    *   **Key Fields**: Includes fields for `Amount__c`, `Net_Amount__c`, lookup to related Opportunity (`BetterWorld_Transaction__c`), customer credentials (`Donor_Name__c`, `Email__c`, `Phone__c`), and payment attributes.
+*   **Formula & Quality Control Fields**:
+    *   `Opportunity.QB_Payment_Method_Formula__c`: Automates accounting mappings to QuickBooks.
+    *   `Opportunity.Account_Name_for_email__c`: Supports mail merge functionality in automation alerts.
+    *   `Contact.Current_Calendar_Year__c`: Computes dynamically to facilitate temporal donation comparisons.
+    *   `Opportunity.Ghost_Labels__c`: Tracking indicator for temporary campaigns.
+
+---
+
 ## 🛠️ How to Deploy & Inspect
 
 Since this repository is in **Salesforce DX (SFDX)** format, it is fully deployable to any scratch org or developer sandbox.

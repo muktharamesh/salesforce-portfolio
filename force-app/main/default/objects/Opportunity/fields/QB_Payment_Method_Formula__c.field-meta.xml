@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QB_Payment_Method_Formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    NOT(ISBLANK(BetterWorld_Transaction__c)),
+    13,
+    IF(
+        NOT(ISBLANK(give_lively__Donation_Id__c)),
+        8,
+        IF(
+            RecordTypeId = &quot;012VW0000008UVZYA2&quot;,
+            12,
+            IF(
+                NOT(ISBLANK(Zeffy_Transaction__c)),
+                9,
+                IF(
+                    NOT(ISBLANK(PayPal_Transaction__c)),
+                    10,
+                    IF(
+                        ISPICKVAL(Payment_Method__c, &quot;Square&quot;),
+                        6,
+                        IF(
+                            ISPICKVAL(Payment_Method__c, &quot;Better World (Stripe)&quot;),
+                            13,
+                            IF(
+                                ISPICKVAL(Payment_Method__c, &quot;Venmo&quot;),
+                                11,
+                                IF(
+                                    ISPICKVAL(Payment_Method__c, &quot;Check&quot;),
+                                    2,
+                                    IF(
+                                        ISPICKVAL(Payment_Method__c, &quot;Cash&quot;),
+                                        1,
+                                        1
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>QB Payment Method Formula</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
