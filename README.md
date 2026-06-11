@@ -1,0 +1,58 @@
+# Salesforce Portfolio: Advanced Automations & Business Intelligence
+
+Welcome to my Salesforce Portfolio! This repository contains the source code (Salesforce DX format) for my custom configurations, automations, and analytical solutions developed for the Salesforce platform. It demonstrates how I leverage Lightning Flow, Reports, and Dashboards to solve real-world business problems and drive data-driven decision-making.
+
+---
+
+## 🚀 Key Projects & Solutions
+
+### 1. Business Automation with Lightning Flows (`force-app/main/default/flows/`)
+Automating repetitive processes reduces human error and accelerates sales cycles. This repository showcases three custom flows:
+
+*   **BetterWorld: Auto Create Contact and Opp Records** (`BetterWorld_Auto_Create_Contact_Account_and_Opp_Records`)
+    *   **Business Case**: Streamlines external donor registration systems. Whenever incoming data registers, this flow automatically verifies matching records, and dynamically creates or links Contacts and Opportunities to ensure clean data pipelines.
+*   **Ghost Member Creation from Opportunity** (`Ghost_Member_Creation_from_Opportunity`)
+    *   **Business Case**: Solves marketing attribution gaps. This flow runs when an opportunity meets specific conditions and creates a temporary "Ghost" Campaign Member, linking the sale directly back to its marketing campaign origin for accurate ROI tracking.
+*   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
+    *   **Business Case**: Gives account managers a rapid one-click solution. A button on the Opportunity page triggers this flow to send customized email acknowledgements to donors or customers, updating the opportunity status automatically.
+
+---
+
+### 📊 2. Analytics & Business Intelligence (`force-app/main/default/dashboards/` & `reports/`)
+A business is only as strong as its data. I built a comprehensive reporting suite to provide executives with real-time insight into performance, donor tracking, and database hygiene.
+
+#### 📈 Central Analytics Hub: **2026 RedHorse Dashboard**
+*   **Location**: `force-app/main/default/dashboards/CustomDashboards/`
+*   **Purpose**: Serves as the executive summary dashboard for year-over-year donations, giving circle performance, and marketing event transactions.
+
+#### 📝 Reports Supporting the Dashboard (18 Custom Reports):
+*   **Financial Tracking**: `X2026_Donations_dlt`, `Giving_Circle_Donor_Amount_2026_TI2`, `GAU_Report_2026_QQ0` (tracks general accounting unit allocations).
+*   **Hygiene & Audits**: `Duplicate_Contact_Account_Report_AhY` (reports duplicate matches to keep database clean).
+*   **Event Auditing**: `Porch_Party_Square_Transaction_MPF` and `Porch_Party_Zeffy_Transactions_pgH` (reconciling external event payments).
+*   **Customer Insights**: `RFM_Report_Ns5` (segmenting donors by Recency, Frequency, and Monetary value).
+
+---
+
+## 🛠️ How to Deploy & Inspect
+
+Since this repository is in **Salesforce DX (SFDX)** format, it is fully deployable to any scratch org or developer sandbox.
+
+### Prerequisites
+1. Install [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli).
+2. Authorize your target Salesforce environment:
+   ```bash
+   sf org login web --alias target-org
+   ```
+
+### Deploying the Metadata
+To deploy the flows, reports, and dashboards to your authorized org:
+```bash
+sf project deploy start --target-org target-org
+```
+
+---
+
+## 📫 Contact
+Feel free to connect with me to discuss Salesforce administration, development, or consulting projects!
+*   **Name**: Muktha Ramesh
+*   **Salesforce Org**: `muktha.rameshb@redhorse.red`

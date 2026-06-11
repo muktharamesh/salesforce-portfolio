@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>triggers a zap to create or update member in ghost</description>
+        <name>trigger_zap</name>
+        <label>trigger zap</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>Opportunity.ghost_zapier_label_workflow</actionName>
+        <actionType>outboundMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>Opportunity.ghost_zapier_label_workflow</nameSegment>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Triggers a zap when a new Opportunity with a newly created Contact is recorded, excluding Mental Health Session.</description>
+    <environments>Default</environments>
+    <interviewLabel>Ghost Member Creation from Opportunity {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Ghost Member Creation from Opportunity</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>trigger_zap</targetReference>
+        </connector>
+        <filterFormula>AND(
+  {!$Record.RecordTypeId} &lt;&gt; &quot;012VW000001bIGjYAM&quot;,
+  NOT(ISBLANK({!$Record.npsp__Primary_Contact__c})),
+  NOT(ISBLANK({!$Record.npsp__Primary_Contact__r.Email})),
+  ({!$Record.CreatedDate} - {!$Record.npsp__Primary_Contact__r.CreatedDate}) * 24 * 60 &lt;= 5
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
