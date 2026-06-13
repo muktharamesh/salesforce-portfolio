@@ -69,6 +69,7 @@ graph TD
     *   `Name` (Contact's name)
     *   `Email` (Contact's email address)
     *   `Opportunity ID`
+    *   `Ghost_Labels__c` (Dynamic tag list containing Volunteer, Giving Circle, Sponsor, etc.)
 
 #### 2. Action: Create/Update Member in Ghost
 *   **Event App**: Ghost
@@ -77,6 +78,7 @@ graph TD
     *   `Name` ⬅️ Salesforce Name
     *   `Email` ⬅️ Salesforce Email
     *   `Subscribed to Newsletters` ⬅️ `True`
+    *   `Labels / Tags` ⬅️ `Ghost_Labels__c` (Splits space/comma separated strings to dynamically tag subscribers)
 
 ---
 

@@ -54,19 +54,20 @@ graph TD
 
 ---
 
-### 3. Automated Marketing Synchronization & Privacy Compliance (Ghost Member Sync)
-*   **Business Impact**: Developed a record-triggered flow connecting Salesforce to the Ghost newsletter and email marketing platform.
-    *   **Automated Subscriber Onboarding**: Real-time sync of newly registered contacts (via purchases, campaigns, or donations) to the newsletter list, **eliminating 3–5 hours/week of manual CSV exports**.
-    *   **Ensured 100% Privacy Compliance**: Implemented a validation filter that programmatically excludes sensitive `Mental Health Session` records, eliminating the risk of human error violating HIPAA/privacy regulations.
-    *   **Improved Engagement**: Enabled immediate delivery of welcome email sequences, increasing supporter retention rates.
+### 3. Automated Supporter Segmentation & Privacy Compliance (Ghost Sync Integration)
+*   **Business Impact**: Architected a record-triggered flow and database tagging engine connecting Salesforce to the Ghost newsletter and email marketing platform.
+    *   **Dynamic Subscriber Segmentation**: Designed a custom formula field (`Ghost_Labels__c`) that dynamically generates subscriber interest tags (e.g., `Volunteer`, `Giving Circle`, `Events`, `Sponsor Universe`) based on contact picklists and opportunity record types, enabling targeted automated email campaigns.
+    *   **Automated Sync**: Real-time sync of new donors, purchasers, and event registrants to Ghost via Zapier, **saving 3–5 hours/week of manual list management**.
+    *   **Ensured 100% Privacy Compliance**: Configured a filter rule to programmatically exclude sensitive `Mental Health Session` records, eliminating the risk of human error violating privacy policies.
 
 #### Workflow Diagram:
 ```mermaid
 graph TD
     A[New Opportunity Recorded] -->|Filter: Contact Created &lt; 5m Ago| B{Record Type Check}
     B -->|Is Mental Health Session| C[End: Exclude to Protect Privacy]
-    B -->|Is Standard Donation/Purchase| D[Trigger Outbound Message]
-    D -->|Zapier Webhook Sync| E[Ghost Platform: Add/Update Subscriber]
+    B -->|Is Standard Donation/Purchase| D[Evaluate Ghost_Labels__c Formula]
+    D -->|Generate Target Tags| E[Trigger Outbound Webhook Message]
+    E -->|Zapier Integration| F[Ghost Platform: Create/Update Member with Segment Tags]
 ```
 
 ---
