@@ -11,6 +11,7 @@ Automating repetitive processes reduces human error and accelerates sales cycles
 
 *   **BetterWorld: Auto Create Contact and Opp Records** (`BetterWorld_Auto_Create_Contact_Account_and_Opp_Records`)
     *   **Business Case**: Streamlines external donor registration systems. Whenever incoming data registers, this flow automatically verifies matching records, and dynamically creates or links Contacts and Opportunities to ensure clean data pipelines.
+    *   **Integration**: Connected via external [Zapier Integration](zapier/README.md) that loads BetterWorld webhook payloads directly into Salesforce.
 *   **Ghost Member Creation from Opportunity** (`Ghost_Member_Creation_from_Opportunity`)
     *   **Business Case**: Solves marketing attribution gaps. This flow runs when an opportunity meets specific conditions and creates a temporary "Ghost" Campaign Member, linking the sale directly back to its marketing campaign origin for accurate ROI tracking.
 *   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
