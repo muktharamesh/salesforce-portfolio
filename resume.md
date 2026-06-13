@@ -59,6 +59,15 @@ graph LR
 
 ---
 
+### 4. Day-to-Day Salesforce Administration & Platform Maintenance
+*   **Business Impact**: Performed regular platform configuration and troubleshooting tasks to improve system efficiency, maintain security, and optimize data hygiene.
+    *   **Database Schema & Custom Fields**: Created and updated custom fields, lookups, and formula fields (such as `QB_Payment_Method_Formula__c` and `Current_Calendar_Year__c`) to align data formats for downstream accounting systems (QuickBooks).
+    *   **Campaign Hierarchy Management**: Structured parent-child campaign roll-ups, ensuring aggregate totals (member counts, donation amounts) roll up accurately for executive visibility.
+    *   **Email Templates**: Authored and updated HTML/Classic Email Templates linked to automated system flows to standardize and automate transactional communications.
+    *   **Data Quality & Deduplication**: Conducted regular system audits, creating custom reports (like the `Duplicate Contact & Account Report`) to identify, merge, and purge duplicate records, maintaining a high-fidelity CRM database.
+
+---
+
 ## 🎓 Certifications & Professional Development
 *   Salesforce Certified Administrator (In Progress / Complete)
 *   Continuous study in Salesforce Lightning Web Components (LWC) and Apex Development.
