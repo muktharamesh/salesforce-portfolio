@@ -54,17 +54,19 @@ graph TD
 
 ---
 
-### 2. Marketing Attribution Automation (Ghost Campaign Member Flow)
-*   **Business Impact**: Developed the "Ghost Member Creation" Flow to capture sales opportunities driven by marketing campaigns that were previously untracked.
-    *   Provided leadership with **100% visibility into marketing campaign ROI** by automatically mapping opportunities to campaign history.
-    *   Recovered lost conversion attribution data, enabling data-backed budgeting decisions for future campaigns.
+### 3. Automated Marketing Synchronization & Privacy Compliance (Ghost Member Sync)
+*   **Business Impact**: Developed a record-triggered flow connecting Salesforce to the Ghost newsletter and email marketing platform.
+    *   **Automated Subscriber Onboarding**: Real-time sync of newly registered contacts (via purchases, campaigns, or donations) to the newsletter list, **eliminating 3–5 hours/week of manual CSV exports**.
+    *   **Ensured 100% Privacy Compliance**: Implemented a validation filter that programmatically excludes sensitive `Mental Health Session` records, eliminating the risk of human error violating HIPAA/privacy regulations.
+    *   **Improved Engagement**: Enabled immediate delivery of welcome email sequences, increasing supporter retention rates.
 
 #### Workflow Diagram:
 ```mermaid
-graph LR
-    A[Opportunity Stage Changes] -->|Meets Tracking Rules| B{Ghost Flow Triggered}
-    B -->|Verify Campaign Link| C[Create Temporary Ghost Campaign Member]
-    C -->|Update Attribution Model| D[Dashboard: Campaign ROI Updated]
+graph TD
+    A[New Opportunity Recorded] -->|Filter: Contact Created &lt; 5m Ago| B{Record Type Check}
+    B -->|Is Mental Health Session| C[End: Exclude to Protect Privacy]
+    B -->|Is Standard Donation/Purchase| D[Trigger Outbound Message]
+    D -->|Zapier Webhook Sync| E[Ghost Platform: Add/Update Subscriber]
 ```
 
 ---

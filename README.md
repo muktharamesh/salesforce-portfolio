@@ -15,7 +15,8 @@ Automating repetitive processes reduces human error and accelerates sales cycles
 *   **Square: Auto Create Contact, Account, and Opp Records** (`Square_Auto_Create_Contact_Account_and_Opp_Records`)
     *   **Business Case**: Reconciles point-of-sale event purchases (e.g. via Square terminals). Incoming transaction entries are parsed to automatically create/match contacts and opportunity records. (Co-developed with Stacy McDonald).
 *   **Ghost Member Creation from Opportunity** (`Ghost_Member_Creation_from_Opportunity`)
-    *   **Business Case**: Solves marketing attribution gaps. This flow runs when an opportunity meets specific conditions and creates a temporary "Ghost" Campaign Member, linking the sale directly back to its marketing campaign origin for accurate ROI tracking.
+    *   **Business Case**: Automates newsletter subscriptions for new supporters. Triggers instantly when a new opportunity/contact is recorded, immediately pushing the contact payload to your Ghost newsletter engine.
+    *   **Privacy Control**: Built-in filter logic programmatically excludes sensitive health-related record types (e.g. Mental Health Sessions) to ensure HIPAA compliance and supporter confidentiality.
 *   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
     *   **Business Case**: Gives account managers a rapid one-click solution. A button on the Opportunity page triggers this flow to send customized email acknowledgements to donors or customers, updating the opportunity status automatically.
 
