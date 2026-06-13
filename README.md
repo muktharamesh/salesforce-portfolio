@@ -12,6 +12,8 @@ Automating repetitive processes reduces human error and accelerates sales cycles
 *   **BetterWorld: Auto Create Contact and Opp Records** (`BetterWorld_Auto_Create_Contact_Account_and_Opp_Records`)
     *   **Business Case**: Streamlines external donor registration systems. Whenever incoming data registers, this flow automatically verifies matching records, and dynamically creates or links Contacts and Opportunities to ensure clean data pipelines.
     *   **Integration**: Connected via external [Zapier Integration](zapier/README.md) that loads BetterWorld webhook payloads directly into Salesforce.
+*   **Square: Auto Create Contact, Account, and Opp Records** (`Square_Auto_Create_Contact_Account_and_Opp_Records`)
+    *   **Business Case**: Reconciles point-of-sale event purchases (e.g. via Square terminals). Incoming transaction entries are parsed to automatically create/match contacts and opportunity records. (Co-developed with Stacy McDonald).
 *   **Ghost Member Creation from Opportunity** (`Ghost_Member_Creation_from_Opportunity`)
     *   **Business Case**: Solves marketing attribution gaps. This flow runs when an opportunity meets specific conditions and creates a temporary "Ghost" Campaign Member, linking the sale directly back to its marketing campaign origin for accurate ROI tracking.
 *   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
@@ -40,11 +42,15 @@ To support integrations and advanced metrics, I designed and implemented custom 
 *   **BetterWorld Custom Integration Object** (`BetterWorld_Transaction__c`)
     *   **Purpose**: A fully customized object acting as the landing table for BetterWorld transaction data.
     *   **Key Fields**: Includes fields for `Amount__c`, `Net_Amount__c`, lookup to related Opportunity (`BetterWorld_Transaction__c`), customer credentials (`Donor_Name__c`, `Email__c`, `Phone__c`), and payment attributes.
+*   **Square Custom Integration Object** (`Square_Transaction__c`)
+    *   **Purpose**: Custom landing table for point-of-sale transaction payloads imported from Square. (Co-developed with Stacy McDonald).
+    *   **Key Fields**: Includes fields for `Amount__c`, `Processing_Fee__c`, `Square_Id__c`, `Square_Receipt__c`, customer credentials, and `Opportunity` lookup fields.
 *   **Formula & Quality Control Fields**:
     *   `Opportunity.QB_Payment_Method_Formula__c`: Automates accounting mappings to QuickBooks.
     *   `Opportunity.Account_Name_for_email__c`: Supports mail merge functionality in automation alerts.
     *   `Contact.Current_Calendar_Year__c`: Computes dynamically to facilitate temporal donation comparisons.
     *   `Opportunity.Ghost_Labels__c`: Tracking indicator for temporary campaigns.
+    *   `Opportunity.Square_Transaction__c`: Lookup link mapping opportunities to their source Square transactions.
 
 ---
 

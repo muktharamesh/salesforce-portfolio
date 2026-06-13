@@ -37,6 +37,23 @@ graph TD
 
 ---
 
+### 2. Square Point-of-Sale Event Integration (Collaborative Project)
+*   **Business Impact**: Managed the business architecture and schema mapping for point-of-sale transaction sync (co-developed with Associate Stacy McDonald, who authored the core Flow automation).
+    *   Unified in-person card transactions (via Square readers) and digital CRM databases, **eliminating manual reconciliation sheets** for fundraising events.
+    *   Secured **100% accurate tracking of processing fees** (`Processing_Fee__c`) and transaction IDs, improving financial audit readiness.
+    *   Saved an estimated **8+ hours of accounting reconciliation time** per live event.
+
+#### Workflow Diagram:
+```mermaid
+graph TD
+    A[Square Reader / Portal] -->|Card Swipe / Transaction| B(Integration Sync)
+    B -->|Action: Create Landing Record| C[Salesforce: Square_Transaction__c]
+    C -->|Trigger Automation: Stacy McDonald Flow| D[Salesforce Flow: Square Auto Create]
+    D -->|Match & Parse Records| E[Update Contacts & Opps]
+```
+
+---
+
 ### 2. Marketing Attribution Automation (Ghost Campaign Member Flow)
 *   **Business Impact**: Developed the "Ghost Member Creation" Flow to capture sales opportunities driven by marketing campaigns that were previously untracked.
     *   Provided leadership with **100% visibility into marketing campaign ROI** by automatically mapping opportunities to campaign history.
