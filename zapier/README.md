@@ -47,6 +47,39 @@ graph TD
 
 ---
 
+## ⚡ Salesforce to Ghost Integration
+
+*   **Business Case**: Synchronize standard supporters (donors and event registrants) recorded in Salesforce directly with the Ghost platform to automate newsletter subscription onboarding, with strict automated filters to prevent HIPAA/privacy policy breaches.
+
+### 🔄 Data Flow Architecture
+
+```mermaid
+graph TD
+    A[Salesforce: Opportunity & Contact Created] -->|Native Flow Filter: Exclude Mental Health Sessions| B{Outbound Message Triggered}
+    B -->|Webhook Outbound Message| C(Zapier Integration)
+    C -->|Action: Create/Update Member| D[Ghost Newsletter Platform]
+```
+
+### 📋 Integration Details
+
+#### 1. Trigger: Salesforce Outbound Message
+*   **Event App**: Salesforce
+*   **Trigger Event**: Outbound Message triggered by the native Salesforce Flow `Ghost_Member_Creation_from_Opportunity` when a standard opportunity is saved.
+*   **Payload Captured**:
+    *   `Name` (Contact's name)
+    *   `Email` (Contact's email address)
+    *   `Opportunity ID`
+
+#### 2. Action: Create/Update Member in Ghost
+*   **Event App**: Ghost
+*   **Action Event**: Create or Update Member
+*   **Field Mapping**:
+    *   `Name` ⬅️ Salesforce Name
+    *   `Email` ⬅️ Salesforce Email
+    *   `Subscribed to Newsletters` ⬅️ `True`
+
+---
+
 ## 💡 Key Architectural Decision: Landing Tables
 Instead of having Zapier create Contacts and Opportunities directly (which can lead to massive duplication problems), this integration uses a **Landing Table pattern**:
 1. Zapier dumps raw transaction data into a custom log object (`BetterWorld_Transaction__c`).
