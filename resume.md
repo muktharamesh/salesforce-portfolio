@@ -54,7 +54,28 @@ graph TD
 
 ---
 
-### 3. Automated Supporter Segmentation & Privacy Compliance (Ghost Sync Integration)
+### 3. Custom CSV Import Wizard & Record Automator (LWC & Apex Utility)
+*   **Business Impact**: Developed a custom Lightning Web Component and Apex database staging framework to automate bulk constituent uploads.
+    *   **Enforced Data Integrity**: Created client-side CSV validation and an intermediate staging architecture (`Item_Donor__c`) with automated Contact matching rules, reducing duplicate accounts by **100%**.
+    *   **Automated Gift Processing**: Triggered automated Opportunity creation (Record Type: `In-Kind Gift`) with mapped Campaign sources, Close Dates, realized amounts, and charitable fund allocations (`Charitable_Fund__c`).
+    *   **Automated Error Tracking**: Structured automatic transaction status reporting ('Processed' / 'Failed' with detailed error logs) to allow admins to immediately troubleshoot data issues.
+
+#### Workflow Diagram:
+```mermaid
+graph TD
+    A[Admin/User Uploads CSV] -->|Input Campaign, Close Date & Fund| B[LWC: Custom CSV Wizard]
+    B -->|Submit| C[Insert Staging Records: Item_Donor__c]
+    C -->|Trigger After Insert| D[Apex Handler: Process Records]
+    D -->|Match Email / Name| E{Existing Contact?}
+    E -->|Yes| F[Link to Contact]
+    E -->|No| G[Auto-Create Contact]
+    F & G -->|Create Record| H[Create In-Kind Opportunity]
+    H -->|Log Result| I[Update Staging Status & Error Messages]
+```
+
+---
+
+### 4. Automated Supporter Segmentation & Privacy Compliance (Ghost Sync Integration)
 *   **Business Impact**: Architected a record-triggered flow and database tagging engine connecting Salesforce to the Ghost newsletter and email marketing platform.
     *   **Dynamic Subscriber Segmentation**: Designed a custom formula field (`Ghost_Labels__c`) that dynamically generates subscriber interest tags (e.g., `Volunteer`, `Giving Circle`, `Events`, `Sponsor Universe`) based on contact picklists and opportunity record types, enabling targeted automated email campaigns.
     *   **Automated Sync**: Real-time sync of new donors, purchasers, and event registrants to Ghost via Zapier, **saving 3–5 hours/week of manual list management**.
@@ -72,14 +93,14 @@ graph TD
 
 ---
 
-### 3. Business Intelligence & Reporting Suite (2026 RedHorse Dashboard)
+### 5. Business Intelligence & Reporting Suite (2026 RedHorse Dashboard)
 *   **Business Impact**: Configured a central executive dashboard fed by 18 custom-built reports tracking year-over-year giving circles, payment offsets, and donor recency.
     *   Reduced executive report preparation time from **4 hours per week to instantaneous, real-time access**.
     *   Identified high-value donors using a custom **RFM (Recency, Frequency, Monetary) report**, increasing targeted engagement opportunities.
 
 ---
 
-### 4. Day-to-Day Salesforce Administration & Platform Maintenance
+### 6. Day-to-Day Salesforce Administration & Platform Maintenance
 *   **Business Impact**: Performed regular platform configuration and troubleshooting tasks to improve system efficiency, maintain security, and optimize data hygiene.
     *   **Database Schema & Custom Fields**: Created and updated custom fields, lookups, and formula fields (such as `QB_Payment_Method_Formula__c` and `Current_Calendar_Year__c`) to align data formats for downstream accounting systems (QuickBooks).
     *   **Campaign Hierarchy Management**: Structured parent-child campaign roll-ups, ensuring aggregate totals (member counts, donation amounts) roll up accurately for executive visibility.

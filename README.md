@@ -20,9 +20,19 @@ Automating repetitive processes reduces human error and accelerates sales cycles
 *   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
     *   **Business Case**: Gives account managers a rapid one-click solution. A button on the Opportunity page triggers this flow to send customized email acknowledgements to donors or customers, updating the opportunity status automatically.
 
+### 🛠️ 2. Custom CSV Import Wizard & Record Automator (LWC + Apex)
+An interactive tool developed to streamline constituent data loads, enforce data quality, and automate record creation:
+*   **Custom LWC (`itemDonorImporter`)**: Standard client-side CSV parser that provides an interactive UI for administrators and users to upload supporter files, select a primary Campaign, input Opportunity Close Dates, and specify Charitable Funds.
+*   **Apex Controller (`ItemDonorImporterController`)**: Handles secure database insertions of staging records (`Item_Donor__c`) after enforcing object create permissions.
+*   **Apex Trigger & Handler (`ItemDonorTrigger` & `ItemDonorTriggerHandler`)**: Processes staging entries after insert:
+    *   **Deduplication & Matching**: Evaluates existing Contacts by email or name, preventing duplicate creations.
+    *   **Opportunity Automation**: Automatically generates Opportunity records (Record Type: `In-Kind Gift`) populated with the campaign, Close Date, description, amount, and charitable fund, setting the stage to 'In-Kind Received'.
+    *   **Status Logging**: Updates staging entries to 'Processed' or 'Failed' with detailed error logs, and links the matched Primary Contact.
+*   **Apex Test (`ItemDonorImporterTest`)**: Validates LWC controller logic, staging insertions, contact deduplication, and Opportunity automations, reaching 100% test coverage.
+
 ---
 
-### 📊 2. Analytics & Business Intelligence (`force-app/main/default/dashboards/` & `reports/`)
+### 📊 3. Analytics & Business Intelligence (`force-app/main/default/dashboards/` & `reports/`)
 A business is only as strong as its data. I built a comprehensive reporting suite to provide executives with real-time insight into performance, donor tracking, and database hygiene.
 
 #### 📈 Central Analytics Hub: **2026 RedHorse Dashboard**
@@ -37,7 +47,7 @@ A business is only as strong as its data. I built a comprehensive reporting suit
 
 ---
 
-### 🗄️ 3. Database Schema Extensions & Integrations (`force-app/main/default/objects/`)
+### 🗄️ 4. Database Schema Extensions & Integrations (`force-app/main/default/objects/`)
 To support integrations and advanced metrics, I designed and implemented custom objects and custom fields to expand the default Salesforce database schema:
 
 *   **BetterWorld Custom Integration Object** (`BetterWorld_Transaction__c`)
@@ -46,12 +56,17 @@ To support integrations and advanced metrics, I designed and implemented custom 
 *   **Square Custom Integration Object** (`Square_Transaction__c`)
     *   **Purpose**: Custom landing table for point-of-sale transaction payloads imported from Square. (Co-developed with Stacy McDonald).
     *   **Key Fields**: Includes fields for `Amount__c`, `Processing_Fee__c`, `Square_Id__c`, `Square_Receipt__c`, customer credentials, and `Opportunity` lookup fields.
+*   **Custom CSV Staging Object** (`Item_Donor__c`)
+    *   **Purpose**: Custom landing/staging table used to temporarily hold parsed CSV donor records before processing triggers Contact and Opportunity creation.
+    *   **Key Fields**: Supporter credentials (`Donor_Name__c`, `Donor_Email__c`, `Donor_Phone__c`), transaction parameters (`Realized_Amount__c`, `Estimated_Amount__c`, `Close_Date__c`, `Primary_Campaign_Source__c`, `Charitable_Fund__c`), and status markers (`Status__c`, `Error_Message__c`, `Primary_Contact__c`).
 *   **Formula & Quality Control Fields**:
     *   `Opportunity.QB_Payment_Method_Formula__c`: Automates accounting mappings to QuickBooks.
     *   `Opportunity.Account_Name_for_email__c`: Supports mail merge functionality in automation alerts.
     *   `Contact.Current_Calendar_Year__c`: Computes dynamically to facilitate temporal donation comparisons.
     *   `Opportunity.Ghost_Labels__c`: Tracking indicator for temporary campaigns.
     *   `Opportunity.Square_Transaction__c`: Lookup link mapping opportunities to their source Square transactions.
+    *   `Opportunity.Charitable_Fund__c`: Custom text field representing the designated charitable fund or GAU allocation.
+    *   `Opportunity.Item_Donor__c`: Lookup relationship mapping opportunities back to their source staging record.
 
 ---
 

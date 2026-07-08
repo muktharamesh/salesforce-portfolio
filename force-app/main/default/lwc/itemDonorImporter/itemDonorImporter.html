@@ -1,0 +1,112 @@
+<template>
+    <lightning-card title="Item Donor CSV Importer" icon-name="utility:upload">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alt="Processing..." size="medium"></lightning-spinner>
+            </template>
+
+            <!-- CSV Format Guidance -->
+            <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                <div class="slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:info" size="small" variant="info"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h3 class="slds-text-heading_small"><strong>Expected CSV Format</strong></h3>
+                        <p class="slds-text-body_small slds-m-top_xx-small">
+                            Ensure your CSV file contains the following column headers (case-insensitive):
+                        </p>
+                        <div class="slds-grid slds-wrap slds-m-top_x-small">
+                            <div class="slds-col slds-size_1-of-2 slds-text-body_small">
+                                <ul class="slds-list_dotted">
+                                    <li><strong>Donor Name</strong> <span class="slds-text-color_error">(Required column)</span></li>
+                                    <li><strong>Donor Email</strong> <span class="slds-text-color_error">(Required column)</span></li>
+                                    <li><strong>Item Name</strong> (mapped to Description)</li>
+                                </ul>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-text-body_small">
+                                <ul class="slds-list_dotted">
+                                    <li><strong>Estimated Amount</strong></li>
+                                    <li><strong>Realized Amount</strong></li>
+                                    <li><strong>Donor Phone</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="slds-text-body_small slds-m-top_x-small slds-text-color_weak">
+                            * Note: Email values can be blank; however, the <strong>Donor Name</strong> and <strong>Donor Email</strong> column headers must be present in the CSV header row.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Fields Card -->
+            <div class="slds-form slds-form_stacked slds-m-bottom_medium">
+                <!-- Using record-edit-form just to get a native lookup with search & create capability -->
+                <lightning-record-edit-form object-api-name="Item_Donor__c">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="campaign-field"><span class="slds-required">*</span>Campaign</label>
+                        <div class="slds-form-element__control">
+                            <lightning-input-field 
+                                id="campaign-field"
+                                field-name="Primary_Campaign_Source__c" 
+                                value={campaignId}
+                                onchange={handleCampaignChange}
+                                variant="label-hidden"
+                                required>
+                            </lightning-input-field>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+
+                <lightning-input 
+                    type="date" 
+                    label="Close Date" 
+                    value={closeDate} 
+                    onchange={handleCloseDateChange} 
+                    required 
+                    class="slds-m-top_small">
+                </lightning-input>
+
+                <lightning-input 
+                    type="text" 
+                    label="Charitable Fund Name" 
+                    value={charitableFund} 
+                    onchange={handleCharitableFundChange} 
+                    class="slds-m-top_small">
+                </lightning-input>
+            </div>
+
+            <!-- CSV Upload Section -->
+            <div class="slds-box slds-box_xx-small slds-theme_default slds-m-top_medium">
+                <lightning-input 
+                    type="file" 
+                    label="Choose CSV File" 
+                    accept=".csv" 
+                    onchange={handleFileChange}
+                    required>
+                </lightning-input>
+                <template if:true={fileName}>
+                    <p class="slds-m-top_x-small slds-text-color_success font-weight-bold">
+                        Selected File: {fileName}
+                    </p>
+                </template>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="slds-m-top_medium slds-text-align_right">
+                <lightning-button 
+                    label="Reset" 
+                    onclick={handleReset} 
+                    variant="neutral" 
+                    class="slds-m-right_x-small">
+                </lightning-button>
+                <lightning-button 
+                    label="Upload and Import" 
+                    onclick={handleImport} 
+                    variant="brand" 
+                    disabled={isSubmitDisabled}>
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>
