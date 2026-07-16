@@ -17,8 +17,9 @@ Automating repetitive processes reduces human error and accelerates sales cycles
 *   **Ghost Member Creation from Opportunity** (`Ghost_Member_Creation_from_Opportunity`)
     *   **Business Case**: Automates newsletter subscriptions and supporter segmentation. Triggers instantly when a new opportunity/contact is recorded, passing the dynamically calculated `Ghost_Labels__c` formula value to segment subscribers based on interest (Volunteer, Giving Circle, Events, Sponsor Universe).
     *   **Privacy Control**: Built-in filter logic programmatically excludes sensitive health-related record types (e.g. Mental Health Sessions) to ensure HIPAA compliance and supporter confidentiality.
-*   **Opportunity: Email Acknowledgement Button** (`Opportunity_Email_Acknowledgement_Button`)
-    *   **Business Case**: Gives account managers a rapid one-click solution. A button on the Opportunity page triggers this flow to send customized email acknowledgements to donors or customers, updating the opportunity status automatically.
+*   **Opportunity Email Acknowledgement Automation**
+    *   **Screen Flow (`Opportunity_Email_Acknowledgement_Button`)**: Provides a user-friendly button on the Opportunity page allowing account managers to preview and send customized donor email receipts with a single click.
+    *   **Autolaunched Flow (`Opportunity_Email_Acknowledgement`)**: Handles backend automated transactional email routing based on account type (Household vs. Organization) and receipt preferences. (Revised by Co-Administrator Stacy McDonald to optimize dynamic template selection).
 
 ### 🛠️ 2. Custom CSV Import Wizard & Record Automator (LWC + Apex)
 An interactive tool developed to streamline constituent data loads, enforce data quality, and automate record creation:
